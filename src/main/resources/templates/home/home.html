@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="fragments::headerfragment"></head>
+<body>
+
+<div class="flex">
+
+    <header th:insert="fragments::navfragment"></header>
+
+    <div class="content">
+
+        <div>
+            <h1>Bienvenido</h1>
+            <h1 th:text="${#authentication.getPrincipal().getUsername()}"></h1>
+        </div>
+
+
+        <div th:insert="fragments::scriptsfragment"></div>
+    </div>
+</div>
+</body>
+</html>

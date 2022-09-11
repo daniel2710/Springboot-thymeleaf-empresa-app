@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="fragments::headerfragment"></head>
+<body>
+
+<div class="flex">
+
+    <header th:insert="fragments::navfragment"></header>
+
+    <div class="content">
+
+        <div class='container-fluid mt-5'>
+
+            <div class="row mt-5">
+                <div class='col'>
+                    <div class='p-4 table-div scroll'>
+                        <h1>Gestion De Empresas!</h1>
+                        <div class="mt-4 mb-4">
+                            <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:href="@{'/empresa/create'}">
+                                <button class="btn btn-dark btn-sm">Nueva Empresa</button>
+                            </a>
+                        </div>
+                        <div class='d-flex align-items-center justify-content-between'>
+                            <table id='empresaList' class="table table-striped mt-5">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Nit</th>
+                                        <th scope="col">telefono</th>
+                                        <th scope="col">Direccion</th>
+                                        <th scope="col">Fecha Creacion</th>
+                                        <th scope="col">Fecha Actualizacion</th>
+                                        <th scope="col">Usuario</th>
+                                        <th th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" scope="col">Empleados</th>
+                                        <th scope="col">Ingresos/Egresos</th>
+                                        <th scope="col">Transaccion</th>
+                                        <th th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" scope="col">Editar</th>
+                                        <th th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" scope="col">Eliminar</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr class="text-uppercase" th:each="empresa : ${empresaList}">
+                                        <td th:text="${empresa.id}"></td>
+                                        <td th:text="${empresa.name}"></td>
+                                        <td th:text="${empresa.nit}"></td>
+                                        <td th:text="${empresa.phone}"></td>
+                                        <td th:text="${empresa.address}"></td>
+                                        <td th:text="${empresa.createdAt}"></td>
+                                        <td th:text="${empresa.updatedAt}"></td>
+                                        <td th:text="${empresa.createdBy}"></td>
+                                        <td th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a th:href="@{'/empresa/empleados/' + ${empresa.id}}"><button class="btn btn-outline-dark"><i class="fa-solid fa-user"></i></button></a></td>
+                                        <td><a th:href="@{'/empresa/ingresos/' + ${empresa.id}}"><button class="btn btn-outline-dark"><i class="fa-solid fa-hand-holding-dollar"></i></button></a></td>
+                                        <td><a th:href="@{'/empresa/ingresos/nuevo/' + ${empresa.id}}"><button class="btn btn-outline-dark"><i class="fa-solid fa-sack-dollar"></i></button></a></td>
+                                        <td th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a th:href="@{'/editEmpresa/'+ ${empresa.id}}"><button class="btn btn-outline-dark"><i class="far fa-edit"></i></button></a></td>
+                                        <td th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a th:onclick="'javascript:confirmDelete(\''+ ${empresa.id} +'\');'"><button class="btn btn-outline-dark"><i class="far fa-trash-alt"></i></button></a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+    </div>
+
+
+</div>
+
+<div th:include="empresa/confirm-delete-dialog.html" th:remove="tag"></div>
+
+<div th:insert="fragments::scriptsfragment"></div>
+
+<!--Funcion para modal borrar empresa-->
+<script type="text/javascript">
+
+	function confirmDelete(id){
+		$('#deleteModal').modal('show');
+		$("#userIdHiddenInputEmpresa").val(id);
+	}
+
+	function deleteEmpresa(){
+		var id = $("#userIdHiddenInputEmpresa").val();
+		window.location = "deleteEmpresa/"+id;
+	}
+</script>
+</body>
+</html>

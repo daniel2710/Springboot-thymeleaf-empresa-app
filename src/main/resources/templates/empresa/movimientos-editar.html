@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="fragments::headerfragment"></head>
+<body>
+
+<div class="flex">
+
+    <header th:insert="fragments::navfragment"></header>
+
+    <div class="content">
+        <div class='container-fluid mt-5'>
+
+            <div class="row row-create-empresa mt-5">
+
+                <h1>Crear Nueva Empresa</h1>
+
+                <div class='col'>
+                    <form class="mt-5" th:action="@{/editMovDinero}" method="post">
+
+                        <input class="form-control" type=hidden th:value="${movDineroForm.id}" name="id">
+
+                        <select class="form-control" th:value="${movDineroForm.concept}" name="concept">
+                            <option th:text="ingreso"></option>
+                            <option th:text="egreso"></option>
+                        </select>
+
+                        <div class="mb-3 w-75">
+                            <label class="form-label">Monto</label>
+                            <input type="number" required class="form-control" th:value="${movDineroForm.amount}" name="amount">
+                        </div>
+
+<!--                        <input class="d-none" type="hidden" th:value="${empresaId.id}" name="empresa"/>-->
+
+
+                        <a class="m-1" th:href="@{'/empresas'}">
+                            <button type="button" class="btn btn-outline-dark mt-3">Volver</button>
+                        </a>
+
+                        <a class="m-1" th:href="@{'/empresas'}">
+                            <button type="submit" class="btn btn-dark mt-3">Aceptar</button>
+                        </a>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+</div>
+
+
+
+<div th:insert="fragments::scriptsfragment"></div>
+</body>
+</html>

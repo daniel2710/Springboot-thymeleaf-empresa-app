@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="fragments::headerfragment"></head>
+<body>
+
+<div class="flex">
+
+    <header th:insert="fragments::navfragment"></header>
+
+    <div class="content">
+
+        <div class='container-fluid mt-5'>
+            <div class="row mt-5">
+                <div class='col'>
+                    <div>
+                        <div th:each="empresa: ${empresaUsers}" class='p-4 table-div scroll'>
+                            <div class="d-flex justify-content-between">
+                                <img class="rounded" th:src="@{'/recursos/'+${empresa.logo}}" th:alt="${empresa.logo}" style="max-width:10%;" />
+                                <h1 th:text="${empresa.name}"></h1>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div th:each="empresa: ${empresaUsers}" class='p-4 table-div scroll'>
+                        <h1>Listado De Empleados</h1>
+                        <div class='d-flex align-items-center justify-content-between'>
+                            <table id='table-list' class="table table-striped mt-5">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Phone</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr class="text-uppercase" th:each="empleado : ${empresaUsers.employes}">
+                                    <td th:text="${empleado.id}"></td>
+                                    <td th:text="${empleado.username}"></td>
+                                    <td th:text="${empleado.email}"></td>
+                                    <td th:text="${empleado.phone}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<div th:insert="fragments::scriptsfragment"></div>
+</body>
+</html>

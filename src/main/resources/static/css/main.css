@@ -1,0 +1,9 @@
+*{
+    font-family: 'Prompt', sans-serif;
+}
+
+.row-create-empresa{
+    background: white;
+    padding: 5px;
+    border-radius: 5px;
+}

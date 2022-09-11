@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Gestion</title>
+	
+	<!--JQUERY-->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+	<!-- Font awesome -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/js/all.min.js" integrity="sha512-8pHNiqTlsrRjVD4A/3va++W1sMbUHwWxxRPWNyVlql3T+Hgfd81Qc6FC5WMXDC+tSauxxzp1tgiAvSKFu1qIlA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://kit.fontawesome.com/abc2a4dcb1.js" crossorigin="anonymous"></script>
+
+	<!-- css-->
+	<link rel="stylesheet" type="text/css" href="static/css/empleado-form.css" th:href="@{/css/empleado-form.css}">
+
+	<!-- DATA TABLE -->
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">	
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+
+	<script type="text/javascript">
+	    $(document).ready(function() {
+	        //Asegurate que el id de la tabla sea igual al texto despues del simbolo #
+	        $('#empleadoList').DataTable();
+	    } );
+	</script>
+
+	<!-- Css -->
+	<link rel="stylesheet" th:href="@{/css/sidebar.css}">
+	<link rel="stylesheet" type="text/css" href="static/css/main.css" th:href="@{/css/main.css}">
+
+	<!-- Google Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+	<div class="flex">
+
+		<header th:insert="fragments::navfragment"></header>
+
+		<div class="content">
+
+			<div class="container-fluid">
+			<div class="mx-auto col-sm-12 main-section" id="myTab" role="tablist">
+				<h1>Gestion de empleados</h1>
+				<ul class="nav nav-tabs justify-content-end">
+					<li class="nav-item">
+						<a class="nav-link " th:classappend=" ${listTab}" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false">Listado</a>
+					</li>
+					<li class="nav-item" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+						<a class="nav-link" th:classappend=" ${formTab}" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true">Agregar</a>
+					</li>
+					<!--<li class="nav-item">
+						<a class="nav-link" href="#" th:href="@{/logout}"><span th:text="${#authentication.getPrincipal().getUsername()}"></span> - <span>Salir  </span><span class="float-right"><i class="fas fa-sign-out-alt"></i></span></a>
+					</li>-->
+				</ul>
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show" th:classappend=" ${listTab}" id="list" role="tabpanel" aria-labelledby="list-tab">
+						<div class="card">
+							<div class="card-header">
+								<h4>Listado</h4>
+							</div>
+							<div class="card-body">
+								<div th:include="empleado/empleado-list.html" th:remove="tag"></div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane fade show" th:classappend=" ${formTab}" id="form" role="tabpanel" aria-labelledby="form-tab">
+						<div class="card">
+							<div class="card-header">
+								<h4>Perfil Empleado</h4>
+							</div>
+							<div class="card-body">
+								<div th:include="empleado/empleado-form.html" th:remove="tag"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+
+	<div th:insert="fragments::scriptsfragment"></div>
+
+	<div th:if="${editMode}" th:include="empleado/change-password.html" th:remove="tag"></div>
+	<div th:include="empleado/confirm-delete-dialog.html" th:remove="tag"></div>
+</body>
+</html>
