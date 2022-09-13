@@ -26,7 +26,7 @@ public class EmpresaServiceImpl implements EmpresaService{
 
 
     @Override
-    public Empresa getEmpresaById(Long id) throws Exception {
+    public Empresa getEmpresaById(Integer id) throws Exception {
         return empresaRepository.findById(id).orElseThrow(() -> new UsernameOrIdNotFound("El id de la empresa no existe"));
     }
 
@@ -37,7 +37,6 @@ public class EmpresaServiceImpl implements EmpresaService{
         to.setPhone(from.getPhone());
         to.setLogo(from.getLogo());
         to.setEmployes(from.getEmployes());
-        to.setMovimientoDinero(from.getMovimientoDinero());
     }
 
     @Override
@@ -49,7 +48,7 @@ public class EmpresaServiceImpl implements EmpresaService{
 
     @Override
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public void deleteEmpresa(Long id) throws Exception {
+    public void deleteEmpresa(Integer id) throws Exception {
         Empresa empresa = getEmpresaById(id);
         empresaRepository.deleteById(id);
     }

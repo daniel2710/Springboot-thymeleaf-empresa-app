@@ -16,21 +16,25 @@
 
                 <div class='col'>
 
-                    <form class="mt-5" th:action="@{/empresa/ingresos/nuevo}" method="post">
+                    <form class="mt-5" th:object="${movDineroForm}" th:action="@{/empresa/ingresos/nuevo}" method="post">
 
-                            <input class="form-control" type=hidden th:value="${movDineroForm.id}" name="id">
+                            <input class="form-control" type=hidden th:field="${movDineroForm.id}">
 
-                            <select class="form-control" th:value="${movDineroForm.concept}" name="concept">
-                                <option th:text="ingreso"></option>
-                                <option th:text="egreso"></option>
+                            <select class="form-control" th:field="${movDineroForm.concept}" name="concept">
+                                <option th:value="ingreso" th:text="ingreso"></option>
+                                <option th:value="egreso" th:text="egreso"></option>
                             </select>
 
                             <div class="mb-3 w-75">
                                 <label class="form-label">Monto</label>
-                                <input type="number" required class="form-control" th:value="${movDineroForm.amount}" name="amount">
+                                <input type="number" required class="form-control" th:field="${movDineroForm.amount}" >
                             </div>
 
-                            <input class="d-none" type="hidden" th:value="${empresaId.id}" name="empresa"/>
+                        <div th:object="${empresaId}" th:with="someVariable=${empresaId}">
+                            <input th:value="${someVariable}" name="empresaid"/>
+                        </div>
+
+
 
 
                             <a class="m-1" th:href="@{'/empresas'}">

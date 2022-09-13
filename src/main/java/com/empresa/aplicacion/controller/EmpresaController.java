@@ -97,7 +97,7 @@ public class EmpresaController {
 
     // Editar empresa por id - vista(get)
     @GetMapping("/editEmpresa/{id}")
-    public String getEditEmpresaForm(Model model, MovimientoDinero movimientoDinero, @PathVariable(name = "id") Long id) throws Exception {
+    public String getEditEmpresaForm(Model model, MovimientoDinero movimientoDinero, @PathVariable(name = "id") Integer id) throws Exception {
         Empresa empresaToEdit = empresaService.getEmpresaById(id);
         baseAttributerForEmpresaList(model, empresaToEdit, movimientoDinero);
 
@@ -137,7 +137,7 @@ public class EmpresaController {
 
     // Detalles de la empresa por id (empleados, ingresos y egresos)
     @GetMapping("/empresa/empleados/{idempresa}")
-    public String getDetallesEmpresa(Model model, @PathVariable(name = "idempresa") Long idempresa) throws Exception {
+    public String getDetallesEmpresa(Model model, @PathVariable(name = "idempresa") Integer idempresa) throws Exception {
         Empresa empresaById = empresaService.getEmpresaById(idempresa);
         model.addAttribute("empresaUsers", empresaById);
         return "/empresa/empleados";
@@ -145,7 +145,7 @@ public class EmpresaController {
 
 
     @GetMapping("/deleteEmpresa/{id}")
-    public String deleteUser(Model model, @PathVariable(name="id")Long id) throws Exception {
+    public String deleteUser(Model model, @PathVariable(name="id") Integer id) throws Exception {
         try {
             empresaService.deleteEmpresa(id);
         }
@@ -161,10 +161,12 @@ public class EmpresaController {
 
     // Ingresos y Egresos - vista
     @GetMapping("/empresa/ingresos/{idempresa}")
-    public String ingresos(Model model, @PathVariable(name = "idempresa") Long idempresa, Empresa empresa, MovimientoDinero movimientoDinero) throws Exception {
+    public String ingresos(Model model, @PathVariable(name = "idempresa") Integer idempresa, Empresa empresa, MovimientoDinero movimientoDinero) throws Exception {
         baseAttributerForEmpresaList(model, empresa, movimientoDinero);
+
         Empresa empresaById = empresaService.getEmpresaById(idempresa);
         model.addAttribute("empresaTransactions", empresaById);
+
         List<MovimientoDinero> empresaMovimientos = movDineroRepository.transactionByIdEmpresa(idempresa);
         model.addAttribute("empresaMovimientos", empresaMovimientos);
 
@@ -192,9 +194,14 @@ public class EmpresaController {
 
     // Nuevo Movimiento vista
     @GetMapping("/empresa/ingresos/nuevo/{idempresa}")
-    public String nuevoMovimiento(Model model, @PathVariable(name = "idempresa") Long idempresa) throws Exception {
-        Empresa empresaById = empresaService.getEmpresaById(idempresa);
-        model.addAttribute("empresaId", empresaById);
+    public String nuevoMovimiento(Model model, @PathVariable(name = "idempresa") Integer idempresa) throws Exception {
+
+        // Transformacion matematica para obtener el id de la empresa, directamente no se puede agregar como th:object ya que pertenece a una llave foranea de la entidad empresa y no se guardaria en supabase
+        Integer suma = 1+idempresa;
+        Integer transformacionId = suma-1;
+        model.addAttribute("empresaId", transformacionId);
+
+        //...
         baseAttributerForEmpresaList(model, new Empresa(), new MovimientoDinero());
         return "/empresa/movimientos-nuevo";
     }
@@ -207,7 +214,9 @@ public class EmpresaController {
             baseAttributerForEmpresaList(model, empresa, movimientoDinero);
         } else {
             try {
+
                 movDineroService.createMovDinero(movimientoDinero);
+                System.out.println(movimientoDinero);
                 baseAttributerForEmpresaList(model, new Empresa(), new MovimientoDinero());
 
             } catch (Exception e) {
@@ -220,7 +229,7 @@ public class EmpresaController {
 
     // Editar empresa por id - vista(get)
     @GetMapping("/editMovDinero/{idMovDinero}")
-    public String getEditMovDinero(Model model, Empresa empresa, @PathVariable(name = "idMovDinero") Long idMovDinero) throws Exception {
+    public String getEditMovDinero(Model model, Empresa empresa, @PathVariable(name = "idMovDinero") Integer idMovDinero) throws Exception {
         MovimientoDinero editMovDinero = movDineroService.getMovDineroById(idMovDinero);
         baseAttributerForEmpresaList(model , empresa, editMovDinero);
         return "/empresa/movimientos-editar";

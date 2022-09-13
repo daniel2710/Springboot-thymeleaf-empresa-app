@@ -131,7 +131,7 @@ public class EmpleadoController {
 	}
 
 	@GetMapping("/editEmpleado/{id}")
-	public String getEditUserForm(Model model, @PathVariable(name ="id")Long id, Empresa empresa)throws Exception{
+	public String getEditUserForm(Model model, @PathVariable(name ="id")Integer id, Empresa empresa)throws Exception{
 		Empleado empleadoToEdit = empleadoService.getEmpleadoById(id);
 
 		baseAttributerForEmpleadoForm(model, empleadoToEdit,empresa, TAB_FORM );
@@ -169,7 +169,7 @@ public class EmpleadoController {
 	}
 
 	@GetMapping("/deleteEmpleado/{id}")
-	public String deleteUser(Model model, @PathVariable(name="id")Long id) {
+	public String deleteUser(Model model, @PathVariable(name="id")Integer id) {
 		try {
 			empleadoService.deleteEmpleado(id);
 		}

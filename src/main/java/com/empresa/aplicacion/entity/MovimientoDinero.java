@@ -14,7 +14,7 @@ public class MovimientoDinero extends Auditable implements Serializable{
     @GeneratedValue(strategy= GenerationType.IDENTITY, generator="native")
     @GenericGenerator(name="native",strategy="native")
     @Column(name = "transaction_id")
-    private Long id;
+    private Integer id;
 
     @Column
     private String concept;
@@ -22,22 +22,21 @@ public class MovimientoDinero extends Auditable implements Serializable{
     @Column
     private float amount;
 
-    @ManyToOne
-    @JoinColumn(name="enterprise_id", nullable=false)
-    private Empresa empresa;
+    @Column
+    private Integer empresaid;
 
     public MovimientoDinero() {
     }
 
-    public MovimientoDinero(Long id) {
+    public MovimientoDinero(Integer id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -45,12 +44,12 @@ public class MovimientoDinero extends Auditable implements Serializable{
         return concept;
     }
 
-    public Empresa getEmpresa() {
-        return empresa;
+    public Integer getEmpresaid() {
+        return empresaid;
     }
 
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
+    public void setEmpresaid(Integer empresaid) {
+        this.empresaid = empresaid;
     }
 
     public void setConcept(String concept) {
@@ -70,11 +69,11 @@ public class MovimientoDinero extends Auditable implements Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MovimientoDinero that = (MovimientoDinero) o;
-        return Float.compare(that.amount, amount) == 0 && Objects.equals(id, that.id) && Objects.equals(concept, that.concept) && Objects.equals(empresa, that.empresa);
+        return Float.compare(that.amount, amount) == 0 && Objects.equals(id, that.id) && Objects.equals(concept, that.concept) && Objects.equals(empresaid, that.empresaid);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, concept, amount, empresa);
+        return Objects.hash(id, concept, amount, empresaid);
     }
 }

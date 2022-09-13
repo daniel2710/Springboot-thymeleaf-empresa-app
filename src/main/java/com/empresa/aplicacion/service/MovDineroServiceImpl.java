@@ -25,7 +25,7 @@ public class MovDineroServiceImpl implements MovDineroService{
     }
 
     @Override
-    public MovimientoDinero getMovDineroById(Long id) throws Exception {
+    public MovimientoDinero getMovDineroById(Integer id) throws Exception {
         return movDineroRepository.findById(id).orElseThrow(() -> new UsernameOrIdNotFound("El id del movimiento no existe"));
     }
 
@@ -43,7 +43,7 @@ public class MovDineroServiceImpl implements MovDineroService{
 
     @Override
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public void deleteMovDinero(Long idMovDinero) throws Exception{
+    public void deleteMovDinero(Integer idMovDinero) throws Exception{
         movDineroRepository.deleteById(idMovDinero);
     }
 

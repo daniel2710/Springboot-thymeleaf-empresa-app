@@ -7,19 +7,19 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface MovDineroRepository extends JpaRepository<MovimientoDinero, Long> {
+public interface MovDineroRepository extends JpaRepository<MovimientoDinero, Integer> {
 
 
     // TRANSACCIONES DE UNA EMPRESA POR SU ID
-    @Query(value = "SELECT * FROM spring_aplicacion.transactions where enterprise_id = :idempresa", nativeQuery = true)
-    List<MovimientoDinero> transactionByIdEmpresa(@Param("idempresa") Long idempresa);
+    @Query(value = "SELECT * FROM transactions where empresaid = :idempresa", nativeQuery = true)
+    List<MovimientoDinero> transactionByIdEmpresa(@Param("idempresa") Integer idempresa);
 
     // INGRESOS
-    @Query(value = "SELECT * FROM spring_aplicacion.transactions where concept = 'ingreso' and enterprise_id = :idempresa", nativeQuery = true)
-    List<MovimientoDinero> ingresos(@Param("idempresa") Long idempresa);
+    @Query(value = "SELECT * FROM transactions where concept = 'ingreso' and empresaid = :idempresa", nativeQuery = true)
+    List<MovimientoDinero> ingresos(@Param("idempresa") Integer idempresa);
 
 
     // EGRESOS
-    @Query(value = "SELECT * FROM spring_aplicacion.transactions where concept = 'egreso' and enterprise_id = :idempresa", nativeQuery = true)
-    List<MovimientoDinero> egresos(@Param("idempresa") Long idempresa);
+    @Query(value = "SELECT * FROM transactions where concept = 'egreso' and empresaid = :idempresa", nativeQuery = true)
+    List<MovimientoDinero> egresos(@Param("idempresa") Integer idempresa);
 }

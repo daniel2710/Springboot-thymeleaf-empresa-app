@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 public class ChangePasswordForm {
 
 	@NotNull
-	private Long id;
+	private Integer id;
 	
 	@NotBlank(message="Contraseña actual no puede estar vacia")
 	private String currentPassword;
@@ -18,11 +18,11 @@ public class ChangePasswordForm {
 	private String confirmPassword;
 
 	public ChangePasswordForm() { }
-	public ChangePasswordForm(Long id) {this.id = id;}
-	public Long getId() {
+	public ChangePasswordForm(Integer id) {this.id = id;}
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getCurrentPassword() {

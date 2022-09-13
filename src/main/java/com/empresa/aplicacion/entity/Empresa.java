@@ -20,7 +20,7 @@ public class Empresa extends Auditable implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY, generator="native")
     @GenericGenerator(name="native",strategy="native")
     @Column(name = "enterprise_id")
-    private Long id;
+    private Integer id;
 
     @Column(unique=true)
     private String name;
@@ -45,23 +45,19 @@ public class Empresa extends Auditable implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "employe_id")})
     public Set<Empleado> employes;
 
-    @OneToMany(mappedBy="empresa")
-    private Set<MovimientoDinero> movimientoDinero;
-
-
     public Empresa() {
     }
 
-    public Empresa(Long id) {
+    public Empresa(Integer id) {
         this.id = id;
     }
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -114,24 +110,16 @@ public class Empresa extends Auditable implements Serializable {
     }
 
 
-    public Set<MovimientoDinero> getMovimientoDinero() {
-        return movimientoDinero;
-    }
-
-    public void setMovimientoDinero(Set<MovimientoDinero> movimientoDinero) {
-        this.movimientoDinero = movimientoDinero;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Empresa empresa = (Empresa) o;
-        return Objects.equals(id, empresa.id) && Objects.equals(name, empresa.name) && Objects.equals(nit, empresa.nit) && Objects.equals(phone, empresa.phone) && Objects.equals(address, empresa.address) && Objects.equals(logo, empresa.logo) && Objects.equals(employes, empresa.employes) && Objects.equals(movimientoDinero, empresa.movimientoDinero);
+        return Objects.equals(id, empresa.id) && Objects.equals(name, empresa.name) && Objects.equals(nit, empresa.nit) && Objects.equals(phone, empresa.phone) && Objects.equals(address, empresa.address) && Objects.equals(logo, empresa.logo) && Objects.equals(employes, empresa.employes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, nit, phone, address, logo, employes, movimientoDinero);
+        return Objects.hash(id, name, nit, phone, address, logo, employes);
     }
 }

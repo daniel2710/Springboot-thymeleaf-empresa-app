@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.empresa.aplicacion.entity.Empleado;
 
 @Repository
-public interface EmpleadoRepository extends JpaRepository<Empleado, Long> {
+public interface EmpleadoRepository extends JpaRepository<Empleado, Integer> {
 
 	public Optional<Empleado> findByUsername(String username);
 

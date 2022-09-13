@@ -11,11 +11,11 @@ public interface EmpleadoService {
 
 	public Empleado createEmpleado(Empleado empleado) throws Exception;
 
-	public Empleado getEmpleadoById(Long id) throws Exception;
+	public Empleado getEmpleadoById(Integer id) throws Exception;
 
 	public Empleado updateEmpleado(Empleado empleado) throws Exception;
 
-	public void deleteEmpleado(Long id) throws UsernameOrIdNotFound;
+	public void deleteEmpleado(Integer id) throws UsernameOrIdNotFound;
 
 	public Empleado changePassword(ChangePasswordForm form) throws Exception;
 }

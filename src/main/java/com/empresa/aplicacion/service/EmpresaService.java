@@ -8,11 +8,11 @@ public interface EmpresaService {
 
     public Empresa createEmpresa(Empresa empresa);
 
-    public Empresa getEmpresaById(Long id) throws Exception;
+    public Empresa getEmpresaById(Integer id) throws Exception;
 
     public Empresa updateEmpresa(Empresa empresa) throws Exception;
 
-    public void deleteEmpresa(Long id) throws Exception;
+    public void deleteEmpresa(Integer id) throws Exception;
 
 
 }

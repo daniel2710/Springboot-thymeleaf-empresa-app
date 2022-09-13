@@ -61,7 +61,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 	}
 
 	@Override
-	public Empleado getEmpleadoById(Long id) throws UsernameOrIdNotFound {
+	public Empleado getEmpleadoById(Integer id) throws UsernameOrIdNotFound {
 		return empleadoRepository.findById(id).orElseThrow(() -> new UsernameOrIdNotFound("El Id del usuario no existe."));
 	}
 
@@ -83,7 +83,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
 	@Override
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-	public void deleteEmpleado(Long id) throws UsernameOrIdNotFound {
+	public void deleteEmpleado(Integer id) throws UsernameOrIdNotFound {
 		Empleado empleado = getEmpleadoById(id);
 		empleadoRepository.delete(empleado);
 	}

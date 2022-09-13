@@ -23,7 +23,7 @@ public class Empleado implements Serializable{
     @GeneratedValue(strategy=GenerationType.IDENTITY, generator="native")
     @GenericGenerator(name="native",strategy="native")
     @Column(name = "employe_id")
-    private Long id;
+    private Integer id;
 
     @Column
     @NotBlank
@@ -59,16 +59,16 @@ public class Empleado implements Serializable{
         super();
     }
 
-    public Empleado(Long id) {
+    public Empleado(Integer id) {
         super();
         this.id = id;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

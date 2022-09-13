@@ -27,9 +27,6 @@
 						<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" >
 						&nbsp;|&nbsp; <a href="#" th:onclick="'javascript:confirmDelete(\''+ ${empleado.id} +'\');'">eliminar <i class="fas fa-user-times"></i></a>
 						</span>
-						<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" >
-						&nbsp;|&nbsp; <a href="#" th:onclick="'javascript:confirmDelete(\''+ ${empleado.id} +'\');'">detalles <i class="fa-solid fa-info"></i></a>
-						</span>
 				</td>
 			</tr>
 		</tbody>
