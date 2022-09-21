@@ -30,12 +30,9 @@
                                 <input type="number" required class="form-control" th:field="${movDineroForm.amount}" >
                             </div>
 
-                        <div th:object="${empresaId}" th:with="someVariable=${empresaId}">
-                            <input th:value="${someVariable}" name="empresaid"/>
-                        </div>
-
-
-
+                            <div th:object="${empresaId}" th:with="someVariable=${empresaId}">
+                                <input th:value="${someVariable}" name="empresaid"/>
+                            </div>
 
                             <a class="m-1" th:href="@{'/empresas'}">
                                 <button type="button" class="btn btn-outline-dark mt-3">Volver</button>

@@ -10,7 +10,6 @@ import com.empresa.aplicacion.service.MovDineroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -68,10 +67,11 @@ public class EmpresaController {
         } else {
             try {
                 if (!logo.isEmpty()) {
-                    //Path directorioLogos = Paths.get("src//main//resources//static/logosEmpresas");
+
                     String rutaAbsoluta = "C://Empresas//recursos";
 
                     try {
+
                         byte[] bytesLogos = logo.getBytes();
                         Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + logo.getOriginalFilename());
                         Files.write(rutaCompleta, bytesLogos);
@@ -80,7 +80,9 @@ public class EmpresaController {
 
 
                     } catch (IOException e) {
+
                         e.printStackTrace();
+
                     }
                 }
                 empresaService.createEmpresa(empresa);
@@ -100,7 +102,6 @@ public class EmpresaController {
     public String getEditEmpresaForm(Model model, MovimientoDinero movimientoDinero, @PathVariable(name = "id") Integer id) throws Exception {
         Empresa empresaToEdit = empresaService.getEmpresaById(id);
         baseAttributerForEmpresaList(model, empresaToEdit, movimientoDinero);
-
         return "/empresa/editar";
     }
 
@@ -112,7 +113,7 @@ public class EmpresaController {
         } else {
             try {
                 if (!logo.isEmpty()) {
-                    //Path directorioLogos = Paths.get("src//main//resources//static/logosEmpresas");
+
                     String rutaAbsoluta = "C://Empresas//recursos";
 
                     try {
@@ -124,22 +125,27 @@ public class EmpresaController {
                         e.printStackTrace();
                     }
                 }
+
                 empresaService.updateEmpresa(empresa);
+
                 baseAttributerForEmpresaList(model, new Empresa(), new MovimientoDinero());
             } catch (Exception e) {
+
                 model.addAttribute("formErrorMessage", e.getMessage());
                 baseAttributerForEmpresaList(model, empresa, movimientoDinero);
             }
         }
         return "/empresa/lista";
-
     }
 
     // Detalles de la empresa por id (empleados, ingresos y egresos)
     @GetMapping("/empresa/empleados/{idempresa}")
     public String getDetallesEmpresa(Model model, @PathVariable(name = "idempresa") Integer idempresa) throws Exception {
+
         Empresa empresaById = empresaService.getEmpresaById(idempresa);
+
         model.addAttribute("empresaUsers", empresaById);
+
         return "/empresa/empleados";
     }
 
@@ -150,7 +156,8 @@ public class EmpresaController {
             empresaService.deleteEmpresa(id);
         }
         catch (UsernameOrIdNotFound uoin) {
-            model.addAttribute("listErrorMessage",uoin.getMessage());
+
+            model.addAttribute("listErrorMessage", uoin.getMessage());
         }
         return "empresa/lista";
     }
@@ -165,12 +172,14 @@ public class EmpresaController {
         baseAttributerForEmpresaList(model, empresa, movimientoDinero);
 
         Empresa empresaById = empresaService.getEmpresaById(idempresa);
+
         model.addAttribute("empresaTransactions", empresaById);
 
         List<MovimientoDinero> empresaMovimientos = movDineroRepository.transactionByIdEmpresa(idempresa);
+
         model.addAttribute("empresaMovimientos", empresaMovimientos);
 
-        // PARA OBETENER LOS INGRESOS
+        // PARA OBTENER LOS INGRESOS
         Double totalIngresos = 0.00;
         for (MovimientoDinero data : movDineroRepository.ingresos(idempresa)) {
             totalIngresos += data.getAmount();
@@ -187,7 +196,6 @@ public class EmpresaController {
         // PARA OBTENER EL TOTAL(BALACE)
         Double balance = totalIngresos-totalEgresos;
         model.addAttribute("balance", balance);
-
 
         return "empresa/movimientos-lista";
     }
@@ -216,7 +224,7 @@ public class EmpresaController {
             try {
 
                 movDineroService.createMovDinero(movimientoDinero);
-                System.out.println(movimientoDinero);
+//                System.out.println(movimientoDinero);
                 baseAttributerForEmpresaList(model, new Empresa(), new MovimientoDinero());
 
             } catch (Exception e) {
@@ -230,8 +238,11 @@ public class EmpresaController {
     // Editar empresa por id - vista(get)
     @GetMapping("/editMovDinero/{idMovDinero}")
     public String getEditMovDinero(Model model, Empresa empresa, @PathVariable(name = "idMovDinero") Integer idMovDinero) throws Exception {
+
         MovimientoDinero editMovDinero = movDineroService.getMovDineroById(idMovDinero);
+
         baseAttributerForEmpresaList(model , empresa, editMovDinero);
+
         return "/empresa/movimientos-editar";
     }
 
@@ -242,7 +253,9 @@ public class EmpresaController {
             baseAttributerForEmpresaList(model, empresa, movimientoDinero);
         } else {
             try {
+
                 movDineroService.updateMovDinero(movimientoDinero);
+
                 baseAttributerForEmpresaList(model, new Empresa(), new MovimientoDinero());
             } catch (Exception e) {
                 model.addAttribute("formErrorMessage", e.getMessage());

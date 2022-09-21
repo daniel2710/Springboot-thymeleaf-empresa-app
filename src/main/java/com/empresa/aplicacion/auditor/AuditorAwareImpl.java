@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 public class AuditorAwareImpl implements AuditorAware<String> {
 
+	// Para obtener el usuario en auditable
     @Override
     public Optional<String> getCurrentAuditor() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

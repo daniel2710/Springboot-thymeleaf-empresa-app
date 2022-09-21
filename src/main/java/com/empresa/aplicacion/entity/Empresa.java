@@ -1,6 +1,8 @@
 package com.empresa.aplicacion.entity;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -38,8 +40,9 @@ public class Empresa extends Auditable implements Serializable {
     private String logo;
 
 
-    // Mapeo de relacion user/empresas
-    @ManyToMany(cascade = CascadeType.ALL)
+    // Mapeo de relacion empleados/empresas
+    @ManyToMany
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinTable(name = "employe_enterprise",
             joinColumns = {@JoinColumn(name = "enterprise_id")},
             inverseJoinColumns = {@JoinColumn(name = "employe_id")})

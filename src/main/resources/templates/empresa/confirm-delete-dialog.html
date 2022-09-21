@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle"
-     aria-hidden="true">
+     aria-hidden="true" xmlns:th="http://www.w3.org/1999/xhtml">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -15,7 +15,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" th:onclick="deleteEmpresa()">Eliminar Usuario</button>
+        <button type="button" class="btn btn-primary" th:onclick="deleteEmpresa()">Eliminar Empresa</button>
       </div>
     </div>
   </div>

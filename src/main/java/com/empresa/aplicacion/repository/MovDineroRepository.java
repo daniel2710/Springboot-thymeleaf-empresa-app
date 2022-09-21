@@ -18,7 +18,6 @@ public interface MovDineroRepository extends JpaRepository<MovimientoDinero, Int
     @Query(value = "SELECT * FROM transactions where concept = 'ingreso' and empresaid = :idempresa", nativeQuery = true)
     List<MovimientoDinero> ingresos(@Param("idempresa") Integer idempresa);
 
-
     // EGRESOS
     @Query(value = "SELECT * FROM transactions where concept = 'egreso' and empresaid = :idempresa", nativeQuery = true)
     List<MovimientoDinero> egresos(@Param("idempresa") Integer idempresa);

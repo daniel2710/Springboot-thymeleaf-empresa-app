@@ -9,6 +9,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "employes")
@@ -22,6 +24,7 @@ public class Empleado implements Serializable{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY, generator="native")
     @GenericGenerator(name="native",strategy="native")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @Column(name = "employe_id")
     private Integer id;
 

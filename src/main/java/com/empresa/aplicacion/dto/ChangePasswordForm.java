@@ -17,6 +17,7 @@ public class ChangePasswordForm {
 	@NotBlank(message="Confirmar Contraseña no puede estar vacia")
 	private String confirmPassword;
 
+	// Getter and setter
 	public ChangePasswordForm() { }
 	public ChangePasswordForm(Integer id) {this.id = id;}
 	public Integer getId() {

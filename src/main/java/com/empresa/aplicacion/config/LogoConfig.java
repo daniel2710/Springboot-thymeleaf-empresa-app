@@ -1,6 +1,5 @@
 package com.empresa.aplicacion.config;
 
-import com.empresa.aplicacion.WebSecurityConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
